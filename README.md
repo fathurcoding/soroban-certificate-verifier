@@ -1,24 +1,19 @@
-# Soroban Certificate Verifier
+# VeriChain - Soroban Certificate Verifier
 
-## Overview
+A decentralized certificate verification system built on the Stellar Soroban network. VeriChain allows users to securely register, validate, and retrieve digital certificates using SHA-256 hashes, ensuring data integrity and authenticity.
 
-This project implements a decentralized certificate verification system (**VeriChain**) on the Stellar Soroban network. The smart contract allows users to register, validate, and retrieve certificate hashes securely on the blockchain.
+![Testnet Application Screenshot](Screenshot%202026-04-20%20114056.png)
 
-![Certificate Verifier Screenshot](./Screenshot%202026-04-20%20114056.png)
+## Features
 
-## Smart Contract Logic
+- **Register Certificate**: Users can register a document's SHA-256 hash along with a title (up to 50 characters). The contract automatically records the owner's address and the current ledger timestamp to prevent duplicate hash registrations.
+- **Validate Certificate**: Allows anyone to check if a specific certificate hash exists on the blockchain, quickly verifying its authenticity.
+- **Get Certificate Record**: Retrieves detailed information about a registered certificate, including its owner's address, registration timestamp, and the certificate title.
+- **Get User Certificates**: Fetches a list of all certificate hashes registered by a specific user address.
 
-The core logic is located in `contracts/hello-world/src/lib.rs`. It features the `VeriChain` contract with the following functionality:
+## Smart Contract Details
 
-### Data Structures
-- **`CertRecord`**: Stores the metadata of a certificate, including the `owner` (Address), block `timestamp`, and certificate `title`.
-- **`DataKey`**: Manages persistent storage by mapping a certificate hash (`Record(Bytes)`) to its `CertRecord`, and mapping an `Address` to a list of its registered hashes (`UserCerts(Address)`).
-
-### Core Features
-1. **`register_certificate`**: Authenticates the owner and registers a new certificate hash with a title (max 50 chars). It prevents duplicate registrations, stores the `CertRecord`, adds the hash to the user's certificate list, and publishes a `register` event.
-2. **`validate_certificate`**: Quickly checks if a given certificate hash exists on-chain.
-3. **`get_certificate_record`**: Retrieves the owner, timestamp, and title of a specific certificate hash.
-4. **`get_user_certificates`**: Returns an array of all certificate hashes owned by a specific address.
+- **Testnet Contract ID**: `CB7FLDEWHCJ2DLM57ANMLJ7RCHH5R23R76IJDBC74EY4V6E4UT727WJA`
 
 ## Project Structure
 
@@ -27,7 +22,7 @@ This repository uses the recommended structure for a Soroban project:
 ```text
 .
 ├── contracts
-│   └── hello_world
+│   └── hello-world (VeriChain Contract)
 │       ├── src
 │       │   ├── lib.rs
 │       │   └── test.rs
@@ -36,6 +31,5 @@ This repository uses the recommended structure for a Soroban project:
 └── README.md
 ```
 
-- New Soroban contracts can be put in `contracts`, each in their own directory.
-- Contracts should have their own `Cargo.toml` files that rely on the top-level `Cargo.toml` workspace for their dependencies.
-- Frontend libraries can be added to the top-level directory as well.
+- Contracts are located in the `contracts` directory. The VeriChain smart contract logic is implemented inside the `contracts/hello-world/src/lib.rs` file.
+- Contracts have their own `Cargo.toml` files that rely on the top-level `Cargo.toml` workspace for their dependencies.
